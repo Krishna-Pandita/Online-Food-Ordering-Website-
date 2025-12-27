@@ -1,0 +1,26 @@
+{
+  "name": "nam_react",
+  "version": "1.0.0",
+  "description": "This is my React Project",
+  "scripts": {
+    "start": "parcel one.html",
+    "build": "parcel build one.html",
+    "test": "jest"
+  },
+  "keywords": [
+    "React"
+  ],
+  "author": "krishna Pandita",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.16.0"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^6.30.2"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
