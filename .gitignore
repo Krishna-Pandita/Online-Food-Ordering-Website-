@@ -22,4 +22,4 @@ Thumbs.db
 
 # Environment Variables (Crucial for security)
 .env
-*.local
+*.local 

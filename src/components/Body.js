@@ -3,6 +3,8 @@ import resobj from "../utils/mockdata";
 import { useState, useEffect} from "react";
 import resList from "../utils/mockdata";
 import Shimmer from "./Shimmer";
+import useOnlinestatus from "../utils/useonlinestatus";
+
 
 import { Link } from "react-router-dom";
 
@@ -27,10 +29,19 @@ setlistOfRestraunts(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyl
 setfilteredRestraunts(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
      }
 
+
+     const isOnline = useOnlinestatus();
+
+     if(isOnline === false)
+        return (
+        <h1>Looks like you're Offline!!!  Please check your Internet Connection.</h1>
+       )
+
 if (!listOfRestraunts || listOfRestraunts.length === 0) return <Shimmer />;
 
 
     // Body Component
+
 
     return (
         <div className="body">                     {/*Body*/}
@@ -48,6 +59,7 @@ if (!listOfRestraunts || listOfRestraunts.length === 0) return <Shimmer />;
                );
 
             setfilteredRestraunts(filteredRestraunts);
+            
   }}
 >
   Search

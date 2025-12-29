@@ -35,7 +35,11 @@
     list-style: none;
     font-size: 36px;
 }
-
+.nav-li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .btns1 {
     display: flex;
     justify-content: space-between;
@@ -170,4 +174,8 @@
 .user-card{
     border: 1px solid black;
     padding: 10px;
+}
+
+#onlinestatus{
+    font-size: 27px;
 }
