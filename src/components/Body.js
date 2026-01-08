@@ -1,6 +1,6 @@
 import RestrauntCard from "./RestrauntCard";
 import resobj from "../utils/mockdata";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import resList from "../utils/mockdata";
 import Shimmer from "./Shimmer";
 import useOnlinestatus from "../utils/useonlinestatus";
@@ -8,36 +8,36 @@ import useOnlinestatus from "../utils/useonlinestatus";
 
 import { Link } from "react-router-dom";
 
-const Body = () =>{   
-    
+const Body = () => {
+
     const [listOfRestraunts, setlistOfRestraunts] = useState([]);
     const [searchText, setsearchText] = useState("");
     const [filteredRestraunts, setfilteredRestraunts] = useState([]);
 
     console.log("body rendered")
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchdata();
     }, [])
 
-     const fetchdata = async () =>{
-const data =await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-const json = await data.json();
+    const fetchdata = async () => {
+        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        const json = await data.json();
 
-console.log(json);
-setlistOfRestraunts(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [])
-setfilteredRestraunts(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-     }
+        console.log(json);
+        setlistOfRestraunts(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [])
+        setfilteredRestraunts(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    }
 
 
-     const isOnline = useOnlinestatus();
+    const isOnline = useOnlinestatus();
 
-     if(isOnline === false)
+    if (isOnline === false)
         return (
-        <h1>Looks like you're Offline!!!  Please check your Internet Connection.</h1>
-       )
+            <h1>Looks like you're Offline!!!  Please check your Internet Connection.</h1>
+        )
 
-if (!listOfRestraunts || listOfRestraunts.length === 0) return <Shimmer />;
+    if (!listOfRestraunts || listOfRestraunts.length === 0) return <Shimmer />;
 
 
     // Body Component
@@ -45,58 +45,58 @@ if (!listOfRestraunts || listOfRestraunts.length === 0) return <Shimmer />;
 
     return (
         <div className="body">                     {/*Body*/}
-   <div className="search-Parent">
-             <div className="Search">
-                <input className="search-box" type="text" value={searchText} onChange={(e)=>{
-                      setsearchText(e.target.value)
-                }}/>
+            <div className="flex items-center justify-between px-6">
+                <div className="flex my-7 items-center gap-1.5 text-[25px] pl-72">
+                    <input className="h-17 w-160 border-solid rounded-2xl p-3 border border-gray-600 bg-gray-100 focus:outline-none inset-0 placeholder:text-[23px]  placeholder:flex placeholder:items-center placeholder:justify-center" type="text" value={searchText} placeholder="Search food or restaurants" onChange={(e) => {
+                        setsearchText(e.target.value)
+                    }} />
 
-               <button
-                   id="search-Box"
-                   onClick={() => {
-                   const filteredRestraunts = listOfRestraunts.filter((res) =>
-                   res?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
-               );
+                    <button
+                        className="border-solid border-2 rounded-xl h-13 w-14 cursor-pointer"
+                        onClick={() => {
+                            const filteredRestraunts = listOfRestraunts.filter((res) =>
+                                res?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
+                            );
 
-            setfilteredRestraunts(filteredRestraunts);
-            
-  }}
->
-  Search
-</button>
+                            setfilteredRestraunts(filteredRestraunts);
 
-             </div>
+                        }}
+                    >
+                        🔍
+                    </button>
 
-
-            <div className="filter">                 {/*Search*/}
-                    <button className="filterbtn"
-                    onClick={() =>{
-   
-    const filteredRestraunts = listOfRestraunts.filter(
-        (res) => res?.info?.avgRating>4
-    )
-
-setfilteredRestraunts(filteredRestraunts);
-
-
-
-}}>Top Rated Restraunts</button>
                 </div>
 
-</div>
-               <div className="res-container">           {/*Restraunt Container*/}
+
+                <div className="text-[25px] border-2 p-2.5 rounded-2xl ">                 {/*Search*/}
+                    <button className="px-3 cursor-pointer"
+                        onClick={() => {
+
+                            const filteredRestraunts = listOfRestraunts.filter(
+                                (res) => res?.info?.avgRating > 4
+                            )
+
+                            setfilteredRestraunts(filteredRestraunts);
+
+
+
+                        }}>Top Rated Restraunts</button>
+                </div>
+
+            </div>
+            <div className="flex flex-wrap justify-center items-center m-7 gap-7">           {/*Restraunt Container*/}
 
                 {filteredRestraunts.map((restraunt) => (
 
-                    <Link 
+                    <Link
                         key={restraunt.info.id}               // ✅ Add key here
 
-                    to={"/restaurants/"+restraunt.info.id}><RestrauntCard                       // For Rendering Different Restraunts
-                    resdata={restraunt} />  </Link>                 
+                        to={"/restaurants/" + restraunt.info.id}><RestrauntCard                       // For Rendering Different Restraunts
+                            resdata={restraunt} />  </Link>
 
                 ))}
-                   
-               </div>
+
+            </div>
 
         </div>
     )

@@ -11,16 +11,16 @@ const Header = () => {
 
   return (
 
-    <div className="header">                             {/* Full Header Section*/}
+    <div className="flex border-solid border-2 justify-between h-40 bg-blue-100 px-8">                             {/* Full Header Section*/}
 
-      <div className="logoContainer">                    {/* Logo Section*/}
+      <div className="flex items-center">                    {/* Logo Section*/}
 
-        <img src={LOGO_URL} alt="Swiggy Logo" />
-        <p className="name">FoodX</p>
+        <img className="h-29 rounded-3xl bg-transparent" src={LOGO_URL} alt="Swiggy Logo" />
+        <p className="flex items-center text-5xl font-semibold">FoodX</p>
         </div>
 
-      <div className="navbar">                           {/* Navbar Section*/}
-        <ul className="nav-li">
+      <div className="flex items-center justify-center">                           {/* Navbar Section*/}
+        <ul className="flex justify-center items-center gap-12 text-[29px] font-normal ">
           <li id="onlinestatus">Online Status: {isOnline ? "✅" : "🔴"}</li>
           <li> <Link to="/">Home</Link></li>
           <li> <Link to="/about">About Us</Link></li>
@@ -30,8 +30,8 @@ const Header = () => {
         </ul>
       </div>
 
-      <div className="btns1">                            {/* Buttons Section*/}
-        <button className="sign-in" onClick={() => {
+      <div className="flex justify-end items-center text-[29px] font-normal  ">                            {/* Buttons Section*/}
+        <button className="border-2 p-2.5 rounded-2xl px-6" onClick={() => {
           btnNameReact === "Login" ? setbtnNameReact("LogOut") : setbtnNameReact("Login");
         }}>{btnNameReact}</button>
 
