@@ -1,7 +1,48 @@
 @import "tailwindcss";
 
 
+body {
+  background-color: white;
+  color: black;
+}
 
+body.dark {
+  background-color: #6B7280;
+  color: white;
+}
+
+body.dark .body-div{
+    background-color: #6B7280;
+}
+/* Header specific */
+body.dark .header {
+  background-color: #1f2937;
+  border-bottom-color: grey ;
+}
+
+body.dark .addItem{
+    color: white;
+    /* border: 1px solid white; */
+    padding: 8px;
+    border-radius: 12px;
+}
+
+body.dark .Logging{
+    color: white;
+    border: 1px solid white;
+    padding: 12px;
+    border-radius: 12px;
+    width: 110px;
+}
+
+
+body.dark .res-card{
+    color: black;
+}
+
+body.dark .input-text{
+    color: black;
+}
 /* .header {
     display: flex;
     justify-content: space-between;

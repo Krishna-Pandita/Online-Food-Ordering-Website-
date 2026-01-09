@@ -44,10 +44,10 @@ const Body = () => {
 
 
     return (
-        <div className="body">                     {/*Body*/}
-            <div className="flex items-center justify-between px-6">
-                <div className="flex my-7 items-center gap-1.5 text-[25px] pl-72">
-                    <input className="h-17 w-160 border-solid rounded-2xl p-3 border border-gray-600 bg-gray-100 focus:outline-none inset-0 placeholder:text-[23px]  placeholder:flex placeholder:items-center placeholder:justify-center" type="text" value={searchText} placeholder="Search food or restaurants" onChange={(e) => {
+        <div className="pb-6">                     {/*Body*/}
+            <div className="body-div flex items-center justify-between px-6 bg-white">
+                <div className="flex my-7 items-center gap-1.5 text-[25px] pl-100">
+                    <input className="input-text h-18 w-160 border-solid rounded-2xl p-3 border border-gray-600 bg-gray-100 focus:outline-none inset-0 placeholder:text-[23px]  placeholder:flex placeholder:items-center placeholder:justify-center" type="text" value={searchText} placeholder="Search food or restaurants" onChange={(e) => {
                         setsearchText(e.target.value)
                     }} />
 
@@ -80,7 +80,7 @@ const Body = () => {
 
 
 
-                        }}>Top Rated Restraunts</button>
+                        }}>Top Rated Restaurants</button>
                 </div>
 
             </div>
