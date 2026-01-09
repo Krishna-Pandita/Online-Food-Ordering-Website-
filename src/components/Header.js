@@ -4,11 +4,9 @@ import { Link } from "react-router-dom";
 import useOnlinestatus from "../utils/useonlinestatus";
 import Button from "@mui/material/Button";
 import ShoppingCartRounded from "@mui/icons-material/ShoppingCartRounded";
-// import { NavLink } from "react-router-dom";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import { grey } from "@mui/material/colors";
-import {LOGO} from "../utils/constants";
+
 
 
 
