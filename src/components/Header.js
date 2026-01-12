@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import ShoppingCartRounded from "@mui/icons-material/ShoppingCartRounded";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+// import logo from "../assets/foodimage23333.png";
 
 
 
@@ -29,7 +30,7 @@ const Header = () => {
 
       <div className="flex items-center gap-3.5">                    {/* Logo Section*/}
 
-        <img className=" ml-4 h-27 rounded-3xl bg-transparent " src={LOGO_URL} alt="Swiggy Logo" />
+        <img className=" ml-4 h-25 rounded-b-4xl bg-transparent border border-solid border-gray-300" src={LOGO_URL} alt="Swiggy Logo" />
         <p className="flex items-center text-3xl font-semibold">UrbanEats</p>
       </div>
 
