@@ -27,9 +27,9 @@ const Header = () => {
 
     <div className="header flex justify-between h-40 px-8 border-b border-gray-200">                             {/* Full Header Section*/}
 
-      <div className="flex items-center">                    {/* Logo Section*/}
+      <div className="flex items-center gap-3.5">                    {/* Logo Section*/}
 
-        <img className="h-29 rounded-3xl bg-transparent" src={LOGO_URL} alt="Swiggy Logo" />
+        <img className=" ml-4 h-27 rounded-3xl bg-transparent " src={LOGO_URL} alt="Swiggy Logo" />
         <p className="flex items-center text-3xl font-semibold">UrbanEats</p>
       </div>
 
@@ -82,6 +82,7 @@ const Header = () => {
      
       {dark ? (
   <LightModeIcon
+  
     sx={{
       height: 60,
       width: 70,
@@ -89,9 +90,10 @@ const Header = () => {
       border: "1px solid #9CA3AF",
       cursor: "pointer",
       padding: "8px",
+      
     }}
-    onClick={() => setdark(false)}
-  />
+    onClick={() => setdark(false)} 
+ />
 ) : (
   <DarkModeIcon
     sx={{
