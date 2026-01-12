@@ -7,16 +7,17 @@ body {
 }
 
 body.dark {
-  background-color: #6B7280;
+  background-color: #06173f;
   color: white;
 }
 
 body.dark .body-div{
-    background-color: #6B7280;
+    background-color: #06173f;
+    color: black;
 }
 /* Header specific */
 body.dark .header {
-  background-color: #1f2937;
+  background-color: #030d24e1;
   border-bottom-color: grey ;
 }
 
@@ -30,18 +31,38 @@ body.dark .addItem{
 body.dark .Logging{
     color: white;
     border: 1px solid white;
-    padding: 12px;
+    padding: "8px 24px";
     border-radius: 12px;
     width: 110px;
+    height: 59px;
+    /* font-size: "23px" */
 }
 
 
 body.dark .res-card{
     color: black;
+     background-color: #d9e3f0;
+}
+body.dark .resMenu-card{
+    border:1px solid;
+    border-color: #303033;
+ background-color: #d9e3f0;
+ transition: transform 0.3s ease;
+ color: black;
+    
 }
 
-body.dark .input-text{
-    color: black;
+body.dark .resMenu-card:hover{
+ transform: scale(0.95);
+}
+
+body.dark .TopRatedRestaurants{
+    color: rgb(230, 227, 227);
+    border-color: rgb(158, 157, 157);
+}
+
+body.dark .search-icon{
+    border-color: rgb(191, 190, 190);
 }
 /* .header {
     display: flex;
