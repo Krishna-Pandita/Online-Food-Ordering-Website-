@@ -6,25 +6,34 @@ const RestrauntCard = (props) => {                   // Restraunt Card
 
     // console.log(props)
 
-    const { cloudinaryImageId, name, cuisines, costForTwo, avgRating } = resdata?.info;
+    const { cloudinaryImageId, name, cuisines, costForTwo, avgRating, sla , areaName} = resdata?.info;
 
     return (
-        <div className=" res-card h-130 w-100 bg-gray-50 items-center justify-center p-2 rounded-2xl hover:border-2 hover:border-gray-600">
-
-            <img className="h-77 w-100 flex rounded-2xl" src={CDN_URL + cloudinaryImageId} alt="Image Loading">
+        <div className=" res-card h-107 w-82 bg-yellow-100 items-center justify-center py-2 px-2 pb-4 mx-2 rounded-2xl hover:border-gray-600 transform hover:scale-95 transition-transform duration-300">
+<div className="flex justify-center items-center ">
+            <img className="h-65 w-77 mt-1 flex rounded-2xl" src={CDN_URL + cloudinaryImageId} alt="">
             </img>
+</div>
+            <h2 className="font-bold text-lg pt-1.5 px-1.5 py-1">{name}</h2>
 
-            <h2 className="font-bold text-xl p-2 py-2 pt-4">{name}</h2>
+            <h3 className="text-md px-1.5 py-0.5">🟊 {avgRating}
+          <span className="px-1">•</span>
+          {sla.slaString}</h3>
 
-            <h4 className="text-lg p-1 px-2">{cuisines.join(", ")}</h4>
+            <h4 className="text-md font-normal text-gray-800 px-2">{cuisines.join(", ")}</h4>
 
-            <h4 className="text-lg p-1 px-2">Only {costForTwo}</h4>
+            <h3 className="text-md px-2 text-gray-800">{areaName}</h3>
 
-            <h4 className="text-lg p-1 px-2">{avgRating} Stars</h4>
+
+            {/* <h4 className="text-md p-1 px-2">Only {costForTwo}</h4> */}
+
+
+          {/* <h4 className="text-sm p-1 px-2">{areaName}</h4> */}
 
             {/* <h4>{resdata.info.sla.deliveryTime} minutes</h4> */}
 
         </div>
+        
     )
 }
 
