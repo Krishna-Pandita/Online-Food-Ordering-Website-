@@ -9,14 +9,14 @@ const RestrauntCard = (props) => {                   // Restraunt Card
     const { cloudinaryImageId, name, cuisines, costForTwo, avgRating, sla , areaName} = resdata?.info;
 
     return (
-        <div className=" res-card h-107 w-82 bg-yellow-100 items-center justify-center py-2 px-2 pb-4 mx-2 rounded-2xl hover:border-gray-600 transform hover:scale-95 transition-transform duration-300">
+        <div className=" res-card h-106 w-82 bg-gray-50 items-center justify-center py-2 px-2 pb-4 mx-2 rounded-2xl hover:border-gray-600 transform hover:scale-95 transition-transform duration-300">
 <div className="flex justify-center items-center ">
-            <img className="h-65 w-77 mt-1 flex rounded-2xl" src={CDN_URL + cloudinaryImageId} alt="">
+            <img className="h-60 w-74 mt-1 flex rounded-2xl" src={CDN_URL + cloudinaryImageId} alt="">
             </img>
 </div>
-            <h2 className="font-bold text-lg pt-1.5 px-1.5 py-1">{name}</h2>
+            <h2 className="font-bold text-lg pt-1.5 px-1.5 py-1 text-gray-800">{name}</h2>
 
-            <h3 className="text-md px-1.5 py-0.5">🟊 {avgRating}
+            <h3 className="text-md px-1.5 py-0.5 text-gray-800">🟊 {avgRating}
           <span className="px-1">•</span>
           {sla.slaString}</h3>
 
