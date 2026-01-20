@@ -1,106 +1,180 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import RestrauntCard from "./RestrauntCard";
-import resobj from "../utils/mockdata";
-import { useState, useEffect } from "react";
-import resList from "../utils/mockdata";
 import Shimmer from "./Shimmer";
 import useOnlinestatus from "../utils/useonlinestatus";
 
-
-import { Link } from "react-router-dom";
-
 const Body = () => {
+  const [searchText, setSearchText] = useState("");
 
-    const [listOfRestraunts, setlistOfRestraunts] = useState([]);
-    const [searchText, setsearchText] = useState("");
-    const [filteredRestraunts, setfilteredRestraunts] = useState([]);
+  const [topBrandsTitle, setTopBrandsTitle] = useState("");
+  const [topBrandRestaurants, setTopBrandRestaurants] = useState([]);
 
-    console.log("body rendered")
+  const [popularRestaurantsTitle, setPopularRestaurantsTitle] = useState("");
+  const [popularRestaurantsList, setPopularRestaurantsList] = useState([]);
 
-    useEffect(() => {
-        fetchdata();
-    }, [])
+  const [originalTopBrands, setOriginalTopBrands] = useState([]);
+  const [originalPopular, setOriginalPopular] = useState([]);
 
-    const fetchdata = async () => {
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-        const json = await data.json();
+  const isOnline = useOnlinestatus();
 
-        console.log(json);
-        setlistOfRestraunts(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [])
-        setfilteredRestraunts(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
+      const json = await res.json();
+      const cards = json?.data?.cards || [];
+
+      /* ================= TOP BRANDS ================= */
+      const topBrandCard = cards.find(
+        (c) => c?.card?.card?.id === "top_brands_for_you"
+      );
+      const topBrands =
+        topBrandCard?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
+        [];
+      setTopBrandsTitle(topBrandCard?.card?.card?.header?.title || "");
+      setTopBrandRestaurants(topBrands);
+      setOriginalTopBrands(topBrands);
+
+      /* ================= POPULAR RESTAURANTS ================= */
+      const popularCard = cards.find(
+        (c) => c?.card?.card?.id === "restaurant_grid_listing_v2"
+      );
+
+      const popularRestaurants =
+        popularCard?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+
+      /* Get title from API */
+      const popularTitleCard = cards.find(
+        (c) => c?.card?.card?.id === "popular_restaurants_title"
+      );
+      const popularTitle = popularTitleCard?.card?.card?.title || "Popular Restaurants";
+
+      setPopularRestaurantsTitle(popularTitle);
+      setPopularRestaurantsList(popularRestaurants);
+      setOriginalPopular(popularRestaurants);
+    } catch (err) {
+      console.error("Error fetching restaurants:", err);
     }
+  };
 
-
-    const isOnline = useOnlinestatus();
-
-    if (isOnline === false)
-        return (
-            <h1>Looks like you're Offline!!!  Please check your Internet Connection.</h1>
-        )
-
-    if (!listOfRestraunts || listOfRestraunts.length === 0) return <Shimmer />;
-
-
-    // Body Component
-
-
+  if (!isOnline) {
     return (
-        <div className="pb-6">                     {/*Body*/}
-            <div className="body-div flex items-center justify-between px-6 bg-white">
-                <div className="flex my-7 items-center gap-1.5 text-[25px] pl-100">
-                    <input className="input-text h-18 w-160 border-solid rounded-2xl p-3 border border-gray-600 bg-gray-100 focus:outline-none inset-0 placeholder:text-[23px]  placeholder:flex placeholder:items-center placeholder:justify-center" type="text" value={searchText} placeholder="Search food or restaurants" onChange={(e) => {
-                        setsearchText(e.target.value)
-                    }} />
+      <div className="mt-10 flex justify-center">
+        <h1 className="text-2xl text-gray-800">
+          You're offline! Please check your internet connection.
+        </h1>
+      </div>
+    );
+  }
 
-                    <button
-                        className="border-solid border-2 rounded-xl h-13 w-14 cursor-pointer"
-                        onClick={() => {
-                            const filteredRestraunts = listOfRestraunts.filter((res) =>
-                                res?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
-                            );
+  if (topBrandRestaurants.length === 0 && popularRestaurantsList.length === 0) return <Shimmer />;
 
-                            setfilteredRestraunts(filteredRestraunts);
+  return (
+    <div className="pagebody pb-6  px-2">
+      {/* 🔍 SEARCH BAR */}
+      <div className="flex items-center justify-between px-6 pb-6">
+        <div className="search flex items-center gap-2 justify-center mt-4">
+          <input
+            className="h-15 w-146 border rounded-2xl p-3 bg-gray-100 ml-12 "
+            type="text"
+            placeholder=" Search food or restaurants"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
 
-                        }}
-                    >
-                        🔍
-                    </button>
-
-                </div>
-
-
-                <div className="text-[25px] border-2 p-2.5 rounded-2xl ">                 {/*Search*/}
-                    <button className="px-3 cursor-pointer"
-                        onClick={() => {
-
-                            const filteredRestraunts = listOfRestraunts.filter(
-                                (res) => res?.info?.avgRating > 4
-                            )
-
-                            setfilteredRestraunts(filteredRestraunts);
-
-
-
-                        }}>Top Rated Restaurants</button>
-                </div>
-
-            </div>
-            <div className="flex flex-wrap justify-center items-center m-7 gap-7">           {/*Restraunt Container*/}
-
-                {filteredRestraunts.map((restraunt) => (
-
-                    <Link
-                        key={restraunt.info.id}               // ✅ Add key here
-
-                        to={"/restaurants/" + restraunt.info.id}><RestrauntCard                       // For Rendering Different Restraunts
-                            resdata={restraunt} />  </Link>
-
-                ))}
-
-            </div>
-
+          <button
+            className="border-2 rounded-2xl h-14 w-14"
+            onClick={() => {
+              const filteredTop = originalTopBrands.filter((res) =>
+                res?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
+              );
+              const filteredPop = originalPopular.filter((res) =>
+                res?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
+              );
+              setTopBrandRestaurants(filteredTop);
+              setPopularRestaurantsList(filteredPop);
+            }}
+          >
+            🔍
+          </button>
         </div>
-    )
 
-}
+        {/* ⭐ TOP RATED FILTER */}
+         
+         <div className="flex justify-end items-center gap-4">
+        <button
+          className="border-2 rounded-2xl px-4 py-2 h-13 cursor-pointer"
+          onClick={() => {
+            const filteredTop = originalTopBrands.filter(
+              (res) => res?.info?.avgRating > 4.2
+            );
+            const filteredPop = originalPopular.filter(
+              (res) => res?.info?.avgRating > 4.2
+            );
+            setTopBrandRestaurants(filteredTop);
+            setPopularRestaurantsList(filteredPop);
+          }}
+        >
+          Top Rated Restaurants
+        </button>
+
+        {/* 🔄 RESET FILTER */}
+        <button
+          className="border-2 rounded-2xl px-4 py-2 h-13 cursor-pointer"
+          onClick={() => {
+            setTopBrandRestaurants(originalTopBrands);
+            setPopularRestaurantsList(originalPopular);
+          }}
+        >
+          Show All
+        </button>
+        </div>
+      </div>
+
+      {/* 🔹 TOP BRANDS */}
+      {topBrandsTitle && topBrandRestaurants.length > 0 && (
+        <div className="py-4 ">
+          <h2 className="text-2xl font-bold px-17 py-4">{topBrandsTitle}</h2>
+          <div className="flex flex-wrap gap-5 px-8 justify-center items-center">
+            {topBrandRestaurants.map((res) => (
+              <Link
+                key={`top-${res.info.id}`}
+                to={`/restaurants/${res.info.id}`}
+              >
+                <RestrauntCard resdata={res} />
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 🔹 POPULAR RESTAURANTS */}
+      {popularRestaurantsTitle && popularRestaurantsList.length > 0 && (
+        <div className="py-6 ">
+          <h2 className="text-2xl font-bold px-17 py-4">
+            {popularRestaurantsTitle}
+          </h2>
+          <div className="flex flex-wrap gap-5 px-8 justify-center items-center">
+            {popularRestaurantsList.map((res) => (
+              <Link
+                key={`popular-${res.info.id}`}
+                to={`/restaurants/${res.info.id}`}
+              >
+                <RestrauntCard resdata={res} />
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Body;
