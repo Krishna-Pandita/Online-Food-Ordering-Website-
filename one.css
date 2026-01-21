@@ -15,26 +15,27 @@ body.dark .body-div{
     background-color: #06173f;
     color: black;
 }
-/* Header specific */
+
 body.dark .header {
-  background-color: #030d24e1;
-  border-bottom-color: grey ;
+  background-color: #021031e1;
+  border-bottom-color: rgb(49, 49, 50) ;
 }
 
 body.dark .addItem{
     color: white;
     /* border: 1px solid white; */
-    padding: 8px;
+    padding: 8px 10px;
     border-radius: 12px;
+    font-size: 16px;
 }
 
 body.dark .Logging{
     color: white;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     padding: "8px 24px";
-    border-radius: 12px;
-    width: 110px;
-    height: 59px;
+    /* border-radius: 12px; */
+    width: 90px;
+    height: 48px;
     /* font-size: "23px" */
 }
 
@@ -64,6 +65,17 @@ body.dark .TopRatedRestaurants{
 body.dark .search-icon{
     border-color: rgb(191, 190, 190);
 }
+
+body.dark .connection-status{
+    color: white;
+}
+
+body.dark .search input::placeholder{
+    color: gray;
+}
+
+
+
 /* .header {
     display: flex;
     justify-content: space-between;

@@ -1,65 +1,37 @@
 import { useParams } from "react-router-dom";
-import resobj from "../utils/mockdata";
-import { CDN_URL } from "../utils/constants";
 import useResinfo from "../utils/useResinfo";
+import { CDN_URL } from "../utils/constants";
+// import Shimmer from "./Shimmer";
 
 const ResMenu = () => {
-  const { resId } = useParams(); // gets id from URL
-
+  const { resId } = useParams();
   const restaurant = useResinfo(resId);
 
-  // safety check
-  if (!restaurant) {
-    return <h2>Restaurant not found</h2>;
-  }
+  if (!restaurant) return <h1>Restaurant not found</h1>;
 
-
-  // const itemCategoryCards =
-  // restaurant?.cards
-  //   ?.find(c => c.groupedCard)
-  //   ?.groupedCard
-  //   ?.cardGroupMap
-  //   ?.REGULAR
-  //   ?.cards
-  //   ?.filter(
-  //     item =>
-  //       item.card?.card?.["@type"] ===
-  //       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-  //   ) || [];
-
-
-  // const itemCategoryCards =
-  // restaurant.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
-  //   item =>
-  //     item.card?.card?.["@type"] ===
-  //     "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-  // );
-
-  const {
-    name,
-    cuisines,
-    costForTwo,
-    avgRating,
-    cloudinaryImageId,
-    sla,
-    areaName
-  } = restaurant.info;
-
+  const { name, cuisines, costForTwo, cloudinaryImageId, sla, avgRating } = restaurant.info || {};
   return (
-    <div className="res-bg my-7 flex justify-center items-center">
-      <div className="resMenu-card border border-solid bg-yellow-100 border-gray-400 rounded-3xl w-82 h-auto py-6 cursor-pointer transform hover:scale-95 transition-transform duration-300">
-        <div className="flex justify-between items-center">
-        <img className="h-65 w-74 rounded-3xl mb-3 mx-6 " src={CDN_URL + cloudinaryImageId} alt="Image Not found"></img>
-       </div>
-        <h1 className="mx-7 font-bold text-xl">{name}</h1>
-        <h3 className="mx-7 text-md font-normal text-gray-800">{cuisines.join(", ")}</h3>
-        <h3 className="mx-7 gap-3 text-md text-gray-800">🟊 {avgRating}
-          <span className="px-1">•</span>
-          {sla.slaString}</h3>
-        <h3 className="mx-7 text-md font-bold py-1 text-gray-800">{costForTwo}</h3>
+    <div className="res-bg my-7 ">
+      {/* Restaurant Info */}
+      <div className="flex justify-center items-center ">
+        <div className="resMenu-card border rounded-3xl border-gray-200 h-106 w-85 py-3 bg-gray-50 transition-transform duration-300 hover:scale-95 cursor-pointer">
+          <div className="flex justify-center items-center">
+          <img
+            className="rounded-3xl mb-2 h-60 w-74 flex justify-center items-center"
+            src={CDN_URL + cloudinaryImageId}
+            alt={name}
+          />
+          </div>
+          <div className="pl-6 gap-2 ">
+          <h1 className="font-bold text-lg text-gray-800 py-1">{name}</h1>
+          <p className="text-md font-normal text-gray-800 py-1">{cuisines.join(", ")}</p>
+          <p className="text-gray-800 text-md py-1">🟊 {avgRating} • {sla?.slaString || "N/A"}</p>
+          <p className="font-bold text-gray-800">{costForTwo}</p>
+          </div>
+        </div>
+      </div>
 
       </div>
-    </div>
   );
 };
 

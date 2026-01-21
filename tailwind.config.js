@@ -8,5 +8,10 @@ module.exports = {
   theme: {
     extend: {},
   },
+   colors: {
+        cream: "#FFF8DC",        // soft cream
+        softCream: "#FAF3E0",    // warm cream
+        foodCream: "#FDF5E6",    // Swiggy-like
+      },
   plugins: [],
 };

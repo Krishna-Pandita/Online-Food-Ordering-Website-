@@ -26,23 +26,23 @@ const Header = () => {
 
   return (
 
-    <div className="header flex justify-between h-40 px-8 border-b border-gray-200">                             {/* Full Header Section*/}
+    <div className="header flex justify-between h-31 px-8 border-b border-gray-200">                             {/* Full Header Section*/}
 
       <div className="flex items-center gap-3.5">                    {/* Logo Section*/}
 
-        <img className=" ml-4 h-25 rounded-b-4xl bg-transparent border border-solid border-gray-300" src={LOGO_URL} alt="Swiggy Logo" />
-        <p className="flex items-center text-3xl font-semibold">UrbanEats</p>
+        <img className=" ml-4 h-20 rounded-b-4xl bg-transparent border border-solid border-gray-300" src={LOGO_URL} alt="Swiggy Logo" />
+        <p className="flex items-center text-xl font-semibold">UrbanEats</p>
       </div>
 
       <div className="flex items-center justify-center">                           {/* Navbar Section*/}
-        <ul className="flex justify-center items-center gap-14 text-[29px] font-normal ">
+        <ul className="flex justify-center items-center gap-14 text-[23px] font-normal ">
           <li id="onlinestatus">Online Status: {isOnline ? "Active" : "Disconnected"}</li>
           <li className="hover:text-orange-500 hover:font-bold"> <Link to="/">Home</Link></li>
           <li className="hover:text-orange-500 hover:font-bold"> <Link to="/about">About Us</Link></li>
           <li className="hover:text-orange-500 hover:font-bold"> <Link to="/contact">Contact us</Link></li>
           <li className="hover:text-orange-500 hover:font-bold"> <Link to="/grocery">Grocery</Link></li>
           <Button className="addItem" variant="text" startIcon={<ShoppingCartRounded />} sx={{
-            fontSize: "21px",
+            fontSize: "16px",
             color: "black",
             padding: "8px 10px",
           }}>
@@ -65,18 +65,18 @@ const Header = () => {
       </div>
 
       <div className="flex justify-between items-center text-[29px] font-normal  gap-5 ">                            {/* Buttons Section*/}
-        <Button className="Logging border-2 p-2.5 rounded-2xl px-6" variant="outlined" onClick={() => {
+        <Button className="Logging border-2 p-2.5 rounded-2xl px-6" variant="text" onClick={() => {
           btnNameReact === "Login" ? setbtnNameReact("Logout") : setbtnNameReact("Login");
         }} sx={{
           borderRadius: "16px",
           padding: "8px 24px",
-          fontSize: "23px",
+          fontSize: "19px",
           textTransform: "none",
-          borderColor: "#000000",
+          // borderColor: "#000000",
           color: "black",
           "&:hover": {
-            backgroundColor: "#black",
-            borderColor: "#black",
+            // backgroundColor: "#black",
+            // borderColor: "#black",
           },
         }}>{btnNameReact}</Button>
 
@@ -85,12 +85,12 @@ const Header = () => {
   <LightModeIcon
   
     sx={{
-      height: 60,
-      width: 70,
-      borderRadius: "16px",
-      border: "1px solid #9CA3AF",
+      height: 40,
+      width: 50,
+      // borderRadius: "16px",
+      // border: "1px solid #9CA3AF",
       cursor: "pointer",
-      padding: "8px",
+      // padding: "8px",
       
     }}
     onClick={() => setdark(false)} 
@@ -98,12 +98,12 @@ const Header = () => {
 ) : (
   <DarkModeIcon
     sx={{
-        height: 60,
-      width: 70,
-      borderRadius: "16px",
-      border: "1px solid #9CA3AF",
+        height: 40,
+      width: 50,
+      // borderRadius: "16px",
+      // border: "1px solid #9CA3AF",
       cursor: "pointer",
-       padding: "8px",
+      //  padding: "8px",
     }}
     onClick={() => setdark(true)}
   />
