@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { CDN_URL } from "../utils/constants";
 
 import RestrauntCard from "./RestrauntCard";
 import Shimmer from "./Shimmer";
@@ -7,6 +8,8 @@ import useOnlinestatus from "../utils/useonlinestatus";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
+
+  const [minditems, setminditems] = useState([]);
 
   const [topBrandsTitle, setTopBrandsTitle] = useState("");
   const [topBrandRestaurants, setTopBrandRestaurants] = useState([]);
@@ -26,10 +29,20 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const res = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6139&lng=77.2090&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
       const json = await res.json();
       const cards = json?.data?.cards || [];
+
+      // minditms restaurants
+
+const mindCard = json?.data?.cards?.find(
+  (c) => c?.card?.card?.id === "whats_on_your_mind"
+);
+
+setminditems(
+  mindCard?.card?.card?.gridElements?.infoWithStyle?.info || []
+);
 
       /* ================= TOP BRANDS ================= */
       const topBrandCard = cards.find(
@@ -90,7 +103,7 @@ const Body = () => {
           />
 
           <button
-            className="border-2 rounded-2xl h-14 w-14"
+            className="border-2 rounded-2xl h-14 w-14 text-2xl cursor-pointer"
             onClick={() => {
               const filteredTop = originalTopBrands.filter((res) =>
                 res?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
@@ -138,7 +151,47 @@ const Body = () => {
         </div>
       </div>
 
+
+     
+                        {/* whats_on_your_mind*/}
+ 
+{minditems.length> 0 && (
+  <>
+    <div className=" mx-9 py-4">
+      <h2 className="text-2xl font-bold px-17 py-4">What's on your mind?</h2>
+
+
+
+
+
+      <div className="   category-container flex overflow-x-auto hover-scroll">
+        {minditems.map((item) => (
+          <div key={item.id}>
+          <div className=" w-50 h-40 flex-shrink-0  flex justify-center items-center rounded-2xl overflow-hidden">
+            <img
+              src={ CDN_URL+item.imageId}
+              alt={item.alt}
+              className="w-40 h-37 rounded-2xl cursor-pointer"
+            />
+            </div>
+            {/* <p>{item.action.text}</p> */}
+          </div>
+        ))}
+      </div>
+
+
+
+
+
+
+    </div>
+  </>
+)}
+
+
+
       {/* 🔹 TOP BRANDS */}
+
       {topBrandsTitle && topBrandRestaurants.length > 0 && (
         <div className="py-4 ">
           <h2 className="text-2xl font-bold px-17 py-4">{topBrandsTitle}</h2>
@@ -155,7 +208,9 @@ const Body = () => {
         </div>
       )}
 
+
       {/* 🔹 POPULAR RESTAURANTS */}
+
       {popularRestaurantsTitle && popularRestaurantsList.length > 0 && (
         <div className="py-6 ">
           <h2 className="text-2xl font-bold px-17 py-4">
