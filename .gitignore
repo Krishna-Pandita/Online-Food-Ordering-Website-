@@ -19,7 +19,3 @@ yarn-error.log*
 # OS Files
 .DS_Store
 Thumbs.db
-
-# Environment Variables (Crucial for security)
-.env
-*.local 
