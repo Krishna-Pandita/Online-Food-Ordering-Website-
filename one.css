@@ -76,6 +76,38 @@ body.dark .search input::placeholder{
 
 
 
+
+/* Hide scrollbar by default */
+.hover-scroll::-webkit-scrollbar {
+  height: 0px;
+}
+
+/* Show scrollbar on hover */
+.hover-scroll:hover::-webkit-scrollbar {
+  height: 8px;
+}
+
+/* Scrollbar track */
+.hover-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Scrollbar thumb */
+.hover-scroll::-webkit-scrollbar-thumb {
+  background-color: #cfcfcf;
+  border-radius: 10px;
+}
+
+/* Firefox */
+.hover-scroll {
+  scrollbar-width: none;
+}
+
+.hover-scroll:hover {
+  scrollbar-width: thin;
+}
+
+
 /* .header {
     display: flex;
     justify-content: space-between;
