@@ -20,6 +20,8 @@ const Body = () => {
   const [originalTopBrands, setOriginalTopBrands] = useState([]);
   const [originalPopular, setOriginalPopular] = useState([]);
 
+  const[bestplaces, setbestplaces] = useState([]);
+
   const isOnline = useOnlinestatus();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const res = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6139&lng=77.2090&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=20.3538&lng=85.8145&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
       const json = await res.json();
       const cards = json?.data?.cards || [];
@@ -72,9 +74,20 @@ setminditems(
       setPopularRestaurantsTitle(popularTitle);
       setPopularRestaurantsList(popularRestaurants);
       setOriginalPopular(popularRestaurants);
+
+  /* ================= BEST PLACES ================= */
+    const bestPlacesCard = cards.find(
+      (c) => c?.card?.card?.id === "restaurant_near_me_links"
+    );
+
+    setbestplaces(bestPlacesCard?.card?.card?.brands || []);
+
     } catch (err) {
       console.error("Error fetching restaurants:", err);
     }
+
+
+
   };
 
   if (!isOnline) {
@@ -85,6 +98,9 @@ setminditems(
         </h1>
       </div>
     );
+
+
+
   }
 
   if (topBrandRestaurants.length === 0 && popularRestaurantsList.length === 0) return <Shimmer />;
@@ -95,7 +111,7 @@ setminditems(
       <div className="flex items-center justify-between px-6 pb-6">
         <div className="search flex items-center gap-2 justify-center mt-4">
           <input
-            className="h-15 w-146 border rounded-2xl p-3 bg-gray-100 ml-12 "
+            className="h-17 w-158 border rounded-2xl p-3 bg-gray-100 ml-12 "
             type="text"
             placeholder=" Search food or restaurants"
             value={searchText}
@@ -159,30 +175,21 @@ setminditems(
   <>
     <div className=" mx-9 py-4">
       <h2 className="text-2xl font-bold px-17 py-4">What's on your mind?</h2>
-
-
-
-
-
-      <div className="   category-container flex overflow-x-auto hover-scroll">
+      
+      <div className="   category-container flex overflow-x-auto hover-scroll py-0.5">
         {minditems.map((item) => (
-          <div key={item.id}>
-          <div className=" w-50 h-40 flex-shrink-0  flex justify-center items-center rounded-2xl overflow-hidden">
+          <div key={item.id} >
+          <div className=" w-47 h-48 flex-shrink-0  flex justify-center items-center rounded-4xl overflow-x-auto dark:bg-[#06173f]">
             <img
               src={ CDN_URL+item.imageId}
               alt={item.alt}
-              className="w-40 h-37 rounded-2xl cursor-pointer"
+              className="w-37 h-40 bg-gray-400 rounded-2xl cursor-pointer "
             />
             </div>
             {/* <p>{item.action.text}</p> */}
           </div>
         ))}
       </div>
-
-
-
-
-
 
     </div>
   </>
@@ -228,6 +235,35 @@ setminditems(
           </div>
         </div>
       )}
+
+
+                     {/* 🔹 best places */}
+
+           
+{bestplaces.length > 0 && (
+  <div className="py-6">
+    <h2 className="text-2xl font-bold px-17 py-4">
+      Best Places to Eat Across Cities
+    </h2>
+
+    <div className="flex flex-wrap gap-4 px-8 justify-center">
+      {bestplaces.map((place, index) => (
+        <a
+          key={`best-${index}`}
+          href={place.link}
+          target="_blank"
+          className="w-72 border rounded-xl p-4 hover:shadow-lg transition"
+        >
+          <p className="font-semibold text-lg text-center">
+            {place.text}
+          </p>
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 };
