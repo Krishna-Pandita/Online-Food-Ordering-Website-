@@ -7,37 +7,39 @@ import Shimmer from "./Shimmer";
 import useOnlinestatus from "../utils/useonlinestatus";
 
 const Body = () => {
- 
-          // FOR SETTING SEARCHED TEXT OF RESTURANT
+
+  // FOR SETTING SEARCHED TEXT OF RESTURANT
   const [searchText, setSearchText] = useState("");
 
-          //FOR WHAT'S ON YOUR MIND? RESTUARANTS
-         
+  //FOR WHAT'S ON YOUR MIND? RESTUARANTS
+
   const [minditems, setminditems] = useState([]);
 
-          //FOR TOP RESTAURANTS
+  //FOR TOP RESTAURANTS
 
   const [topBrandsTitle, setTopBrandsTitle] = useState("");          //TITLE
   const [topBrandRestaurants, setTopBrandRestaurants] = useState([]);  //RESTUARNTS LIST
- 
-          //FOR POPULAR RESTAURANTS
+
+  //FOR POPULAR RESTAURANTS
 
   const [popularRestaurantsTitle, setPopularRestaurantsTitle] = useState("");   //TITLE
   const [popularRestaurantsList, setPopularRestaurantsList] = useState([]);     //RESTUARNTS LIST
 
-           // FOR FILTERING RESTAURANTS
+  // FOR FILTERING RESTAURANTS
 
   const [originalTopBrands, setOriginalTopBrands] = useState([]);    // FOR RESET TOP RESTAURANTS
   const [originalPopular, setOriginalPopular] = useState([]);        // FOR RESET POPULAR RESTUARANTS
-  
-            // FOR BEST PLACES SECTION
 
-  const[bestplaces, setbestplaces] = useState([]); 
+  // FOR BEST PLACES SECTION
 
-              //  FOR BEST CUISINES
+  const [bestplaces, setbestplaces] = useState([]);
 
-    const[bestcuisineslist,setbestcuisineslist] = useState([]);
-    
+  //  FOR BEST CUISINES
+
+  const [bestcuisineslist, setbestcuisineslist] = useState([]);
+
+
+  const[isloading,setisloading] = useState(true);
 
 
   const isOnline = useOnlinestatus();
@@ -56,15 +58,15 @@ const Body = () => {
 
       // minditms restaurants
 
-const mindCard = cards?.find(
-  (c) => c?.card?.card?.id === "whats_on_your_mind"
-);
+      const mindCard = cards?.find(
+        (c) => c?.card?.card?.id === "whats_on_your_mind"
+      );
 
-setminditems(
-  mindCard?.card?.card?.gridElements?.infoWithStyle?.info || []
-);
+      setminditems(
+        mindCard?.card?.card?.gridElements?.infoWithStyle?.info || []
+      );
 
-              /*  TOP BRANDS \ */
+      /*  TOP BRANDS \ */
 
       const topBrandCard = cards.find(
         (c) => c?.card?.card?.id === "top_brands_for_you"
@@ -85,10 +87,10 @@ setminditems(
       const popularRestaurants =
         popularCard?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
 
-        const popularTitleCard = cards.find(
+      const popularTitleCard = cards.find(
         (c) => c?.card?.card?.id === "popular_restaurants_title"
       );
-      
+
       const popularTitle = popularTitleCard?.card?.card?.title || "Popular Restaurants";
 
       setPopularRestaurantsTitle(popularTitle);
@@ -98,30 +100,28 @@ setminditems(
 
 
 
-  /* ================= BEST PLACES ================= */
+      /* ================= BEST PLACES ================= */
 
-    const bestPlacesCard = cards.find(
-      (c) => c?.card?.card?.id === "restaurant_near_me_links"
-    );
+      const bestPlacesCard = cards.find(
+        (c) => c?.card?.card?.id === "restaurant_near_me_links"
+      );
 
-    setbestplaces(bestPlacesCard?.card?.card?.brands || []);
+      setbestplaces(bestPlacesCard?.card?.card?.brands || []);
 
 
 
       // BETS CUISINES
 
-    const bestcuisnescard = cards?.find((c) => c?.card?.card?.title==="Best Cuisines Near Me");
-    const cuisineslist = bestcuisnescard?.card?.card?.brands || [];
+      const bestcuisnescard = cards?.find((c) => c?.card?.card?.title === "Best Cuisines Near Me");
+      const cuisineslist = bestcuisnescard?.card?.card?.brands || [];
 
-    setbestcuisineslist(cuisineslist);
+      setbestcuisineslist(cuisineslist);
 
 
     } catch (err) {
       console.error("Error fetching restaurants:", err);
     }
-
-
-
+setisloading(false);
   };
 
   if (!isOnline) {
@@ -132,23 +132,43 @@ setminditems(
         </h1>
       </div>
     );
-
-
-
   }
 
-  if (topBrandRestaurants.length === 0 && popularRestaurantsList.length === 0) return <Shimmer />;
+
+
+  if(isloading)
+    return <Shimmer />;
+
+
+
+
+  if (!isloading && topBrandRestaurants.length === 0 && popularRestaurantsList.length === 0) return(
+    <div className="mt-9">
+
+  <div className="flex justify-center">
+  <h1 className="text-2xl font-semibold text-gray-700">Oops! Nothing matched your search 🍽️</h1>
+  </div>
+<div className="flex justify-center">
+  <p className="text-gray-500 mt-2">We couldn’t find any restaurants for that. Try something else!</p>
+</div>
+
+</div>
+  )
+
+
+
 
   return (
 
     <div className="pagebody pb-6  px-2">
- 
-               {/* search input + top rated restaurants + show all */}
-                        
+
+
+      {/* search input + top rated restaurants + show all */}
+
       <div className="flex items-center justify-between px-6 pb-6">
 
-                     {/* 🔍 SEARCH BAR */}
-                     
+        {/* 🔍 SEARCH BAR */}
+
         <div className="search flex items-center gap-2 justify-center mt-4">
           <input
             className="h-17 w-158 border rounded-2xl p-3 bg-gray-100 ml-12 "
@@ -175,67 +195,74 @@ setminditems(
           </button>
         </div>
 
+
+
+
         {/* ⭐ TOP RATED FILTER */}
-         
-         <div className="flex justify-end items-center gap-4">
-        <button
-          className="border-2 rounded-2xl px-4 py-2 h-13 cursor-pointer"
-          onClick={() => {
-            const filteredTop = originalTopBrands.filter(
-              (res) => res?.info?.avgRating > 4.2
-            );
-            const filteredPop = originalPopular.filter(
-              (res) => res?.info?.avgRating > 4.2
-            );
-            setTopBrandRestaurants(filteredTop);
-            setPopularRestaurantsList(filteredPop);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+
+        <div className="flex justify-end items-center gap-4">
+          <button
+            className="border-2 rounded-2xl px-4 py-2 h-13 cursor-pointer"
+            onClick={() => {
+              const filteredTop = originalTopBrands.filter(
+                (res) => res?.info?.avgRating > 4.3
+              );
+              const filteredPop = originalPopular.filter(
+                (res) => res?.info?.avgRating > 4.3
+              );
+              setTopBrandRestaurants(filteredTop);
+              setPopularRestaurantsList(filteredPop);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
 
 
-        {/* 🔄 RESET FILTER */}
-        <button
-          className="border-2 rounded-2xl px-4 py-2 h-13 cursor-pointer"
-          onClick={() => {
-            setTopBrandRestaurants(originalTopBrands);
-            setPopularRestaurantsList(originalPopular);
-          }}
-        >
-          Show All
-           </button>
+
+
+          {/* 🔄 RESET FILTER */}
+          <button
+            className="border-2 rounded-2xl px-4 py-2 h-13 cursor-pointer"
+            onClick={() => {
+              setTopBrandRestaurants(originalTopBrands);
+              setPopularRestaurantsList(originalPopular);
+            }}
+          >
+            Show All
+          </button>
         </div>
 
-
       </div>
 
-     
-                        {/* whats_on_your_mind*/}
- 
-{minditems.length> 0 && (
-  <>
-    <div className=" mx-9 py-4">
-      <h2 className="text-2xl font-bold px-17 py-4">What's on your mind?</h2>
-      
-      <div className="   category-container flex overflow-x-auto hover-scroll py-0.5">
-        {minditems.map((item) => (
-          <div key={item.id} >
-          <div className=" w-47 h-48  flex justify-center items-center rounded-4xl overflow-x-auto dark:bg-[#06173f]">
-            <img
-              src={ CDN_URL+item.imageId}
-              alt={item.alt}
-              className="w-37 h-40 bg-gray-400 rounded-2xl cursor-pointer "
-            />
+
+
+
+      {/* whats_on_your_mind*/}
+
+      {minditems.length > 0 && (
+        <>
+          <div className=" mx-9 py-4">
+            <h2 className="text-2xl font-bold px-17 py-4">What's on your mind?</h2>
+
+            <div className="   category-container flex overflow-x-auto hover-scroll py-0.5">
+              {minditems.map((item) => (
+                <div key={item.id} >
+                  <div className=" w-47 h-48  flex justify-center items-center rounded-4xl overflow-x-auto dark:bg-[#06173f]">
+                    <img
+                      src={CDN_URL + item.imageId}
+                      alt={item.alt}
+                      className="w-37 h-40 bg-gray-400 rounded-2xl cursor-pointer "
+                    />
+                  </div>
+                  {/* <p>{item.action.text}</p> */}
+                </div>
+              ))}
             </div>
-            {/* <p>{item.action.text}</p> */}
-          </div>
-        ))}
-      </div>
 
-    </div>
-  </>
-)}
+          </div>
+        </>
+      )}
+
 
 
 
@@ -256,6 +283,9 @@ setminditems(
           </div>
         </div>
       )}
+
+
+
 
 
       {/* 🔹 POPULAR RESTAURANTS */}
@@ -279,58 +309,64 @@ setminditems(
       )}
 
 
-                     {/* 🔹 best places */}
 
-           
-{bestplaces.length > 0 && (
-  <div className="py-6">
-    <h2 className="text-2xl font-bold px-17 py-4">
-      Best Places to Eat Across Cities
-    </h2>
 
-    <div className="flex flex-wrap gap-4 px-8 justify-center">
-      {bestplaces.map((place, index) => (
-        <a
-          key={`best-${index}`}
-          href={place.link}
-          target="_blank"
-          className="w-72 border rounded-xl p-4 hover:shadow-lg transition"
-        >
-          <p className="bestPlacesLink font-semibold text-lg text-center text-gray-700">
-            {place.text}
-          </p>
-        </a>
-      ))}
-    </div>
-  </div>
-)}
 
- 
+      {/* 🔹 best places */}
 
-                   {/* BEST CUISNES NEAR ME  */}
 
-        {bestcuisineslist.length > 0 &&(
-        
+      {bestplaces.length > 0 && (
         <div className="py-6">
-            <h2 className="text-2xl font-bold px-17 py-4">Best Cuisines Near Me</h2>
+          <h2 className="text-2xl font-bold px-17 py-4">
+            Best Places to Eat Across Cities
+          </h2>
 
-        <div className="flex flex-wrap gap-4 px-8 justify-center">
-            {bestcuisineslist.map((place,index)=>(
-<a key={`cuisines-${index}`}
-href={place.link}
-target="_blank"
-className="w-72 border rounded-xl p-4 hover:shadow-lg transition"
-
->
-<p className="bestPlacesLink font-semibold text-lg text-center text-gray-700">{place.text}</p>
-</a>
-
+          <div className="flex flex-wrap gap-4 px-8 justify-center">
+            {bestplaces.map((place, index) => (
+              <a
+                key={`best-${index}`}
+                href={place.link}
+                target="_blank"
+                className="w-72 border rounded-xl p-4 hover:shadow-lg transition"
+              >
+                <p className="bestPlacesLink font-semibold text-lg text-center text-gray-700">
+                  {place.text}
+                </p>
+              </a>
             ))}
           </div>
-        
-
         </div>
-        )}
+      )}
+
+
+
+
+      {/* BEST CUISNES NEAR ME  */}
+
+      {bestcuisineslist.length > 0 && (
+
+        <div className="py-6">
+          <h2 className="text-2xl font-bold px-17 py-4">Best Cuisines Near Me</h2>
+
+          <div className="flex flex-wrap gap-4 px-8 justify-center">
+            {bestcuisineslist.map((place, index) => (
+              <a key={`cuisines-${index}`}
+                href={place.link}
+                target="_blank"
+                className="w-72 border rounded-xl p-4 hover:shadow-lg transition"
+              >
+                <p className="bestPlacesLink font-semibold text-lg text-center text-gray-700">{place.text}</p>
+              </a>
+            ))}
+          </div>
+          
+        </div>
+      )}
+
+
+
+
+
 
 
     </div>
