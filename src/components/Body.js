@@ -51,7 +51,7 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const res = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=20.3538&lng=85.8145&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.05&lng=78.94&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
       const json = await res.json();
       const cards = json?.data?.cards || [];
@@ -124,15 +124,15 @@ const Body = () => {
 setisloading(false);
   };
 
-  if (!isOnline) {
-    return (
-      <div className="mt-10 flex justify-center">
-        <h1 className="text-2xl text-gray-800">
-          You're offline! Please check your internet connection.
-        </h1>
-      </div>
-    );
-  }
+  // if (!isOnline) {
+  //   return (
+  //     <div className="mt-10 flex justify-center">
+  //       <h1 className="text-2xl text-gray-800">
+  //         You're offline! Please check your internet connection.
+  //       </h1>
+  //     </div>
+  //   );
+  // }
 
 
 
