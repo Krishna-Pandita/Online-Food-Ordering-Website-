@@ -1,5 +1,4 @@
-import React,{lazy, Suspense} from "react";
-import ReactDOM from "react-dom/client";
+import React, { lazy, Suspense, useState } from "react";
 import Header from "./src/components/Header";
 import Body from "./src/components/Body";
 // import About from "./src/components/About";
@@ -8,20 +7,29 @@ import Error from "./src/components/Error";
 import ResMenu from "./src/components/ResMenu";
 // import Grocery from "./src/components/Grocery";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-
+import { Provider } from "react-redux";
+import appStore from "./src/utils/Appstore";
+import Cart from "./src/components/Cart";
+import ReactDOM from "react-dom/client";
 
 const Grocery = lazy(()=>import("./src/components/Grocery"));
 
 const About  = lazy(()=>import("./src/components/About"))
 
 const Applayout = () => {
+
+     const [cart, setCart] = useState([]);
+
     return (
+        // <Provider store={appStore}>
         <div className="app">
 
+
             <Header />
-            <Outlet />
+            <Outlet context={{ cart, setCart }} />
 
         </div>
+        // </Provider>
     )
 }
 
@@ -50,6 +58,10 @@ const appRouter = createBrowserRouter([
                 path: "/restaurants/:resId",
                 element:<ResMenu />,
             },
+            {
+                path: "/cart",
+                element:<Cart />,
+            }
         ],
         errorElement: <Error />,
     },

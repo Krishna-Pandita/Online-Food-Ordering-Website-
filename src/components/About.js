@@ -2,7 +2,7 @@ import User from "./user";
 
 const About = () => {
   return (
-    <div className="about-container">
+    <div className="about-container text-black dark:text-white">
 
       {/* Hero Section */}
       <section className="about-hero">

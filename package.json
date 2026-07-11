@@ -13,14 +13,22 @@
   "author": "krishna Pandita",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.16.0"
+    "autoprefixer": "^10.5.0",
+    "parcel": "^2.16.0",
+    "postcss": "^8.5.12",
+    "tailwindcss": "^4.2.4"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.7",
+    "@mui/material": "^7.3.7",
+    "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/postcss": "^4.1.18",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^6.30.2",
-    "tailwindcss": "^4.1.18"
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^6.30.2"
   },
   "browserslist": [
     "last 2 versions"

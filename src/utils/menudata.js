@@ -13,7 +13,7 @@
               "textVariant": "header_H3_Black"
             }
           }
-        }
+        }  
       },
       {
         "card": {
@@ -28,6 +28,8 @@
           }
         }
       },
+
+
       {
         "card": {
           "card": {
@@ -218,6 +220,9 @@
           }
         }
       },
+
+
+
       {
         "card": {
           "card": {
@@ -323,11 +328,19 @@
           }
         }
       },
+
+
+
+
+
+
       {
         "groupedCard": {
           "cardGroupMap": {
             "REGULAR": {
               "cards": [
+
+
                 {
                   "card": {
                     "card": {
@@ -371,6 +384,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -688,6 +702,12 @@
                     }
                   }
                 },
+
+
+
+
+                            //categories
+
                 {
                   "card": {
                     "card": {
@@ -696,6 +716,7 @@
                       "categories": [
                         {
                           "title": "Bestseller Combos",
+
                           "itemCards": [
                             {
                               "card": {
@@ -738,6 +759,7 @@
                                 "hideRestaurantDetails": true
                               }
                             },
+
                             {
                               "card": {
                                 "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
@@ -779,6 +801,7 @@
                                 "hideRestaurantDetails": true
                               }
                             },
+
                             {
                               "card": {
                                 "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
@@ -819,8 +842,9 @@
                                 },
                                 "hideRestaurantDetails": true
                               }
-                            }
+                            }  
                           ],
+
                           "subtitleSuffix": {
 
                           },
@@ -831,11 +855,15 @@
                     }
                   }
                 },
+
+
+
                 {
                   "card": {
                     "card": {
                       "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
                       "title": "Starters",
+
                       "itemCards": [
                         {
                           "card": {
@@ -1307,6 +1335,7 @@
                           }
                         }
                       ],
+
                       "subtitleSuffix": {
 
                       },
@@ -1314,6 +1343,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -1322,6 +1352,7 @@
                       "categories": [
                         {
                           "title": "Veg Main Course",
+
                           "itemCards": [
                             {
                               "card": {
@@ -1771,11 +1802,13 @@
                               }
                             }
                           ],
+
                           "subtitleSuffix": {
 
                           },
                           "categoryId": "70772064"
                         },
+
                         {
                           "title": "Chicken Main Course",
                           "itemCards": [
@@ -2496,6 +2529,7 @@
                               }
                             }
                           ],
+
                           "subtitleSuffix": {
 
                           },
@@ -2504,6 +2538,7 @@
                         {
                           "title": "Mutton Main Course",
                           "itemCards": [
+
                             {
                               "card": {
                                 "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
@@ -3396,6 +3431,7 @@
                               }
                             }
                           ],
+
                           "subtitleSuffix": {
 
                           },
@@ -3406,6 +3442,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -3834,6 +3871,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -3964,6 +4002,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -4596,6 +4635,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -4652,6 +4692,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -5124,6 +5165,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -5222,6 +5264,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -5463,6 +5506,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -5624,6 +5668,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -5735,6 +5780,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -5872,6 +5918,20 @@
                     }
                   }
                 },
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
                 {
                   "card": {
                     "card": {
@@ -5884,6 +5944,7 @@
                     }
                   }
                 },
+
                 {
                   "card": {
                     "card": {
@@ -5894,6 +5955,8 @@
                     }
                   }
                 }
+
+
               ]
             }
           }

@@ -10,15 +10,14 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 
 
 
-
-
 const Header = () => {
   const [btnNameReact, setbtnNameReact] = useState("Login");
   const [dark,setdark] = useState(false);
 
-  useEffect(() => {
-        document.body.classList.toggle("dark", dark);
-  },[dark])
+useEffect(() => {
+  document.documentElement.classList.toggle("dark", dark);
+  document.body.classList.toggle("dark", dark);
+}, [dark]);
 
 
   const isOnline = useOnlinestatus();
@@ -36,18 +35,13 @@ const Header = () => {
 
       <div className="flex items-center justify-center">                           {/* Navbar Section*/}
         <ul className="flex justify-center items-center gap-14 text-[23px] font-normal ">
-          <li id="onlinestatus">Online Status: {isOnline ? "Active" : "Disconnected"}</li>
+          
+          {/* <li id="onlinestatus">Online Status: {isOnline ? "Active" : "Disconnected"}</li> */}
           <li className="hover:text-orange-500 hover:font-bold"> <Link to="/">Home</Link></li>
           <li className="hover:text-orange-500 hover:font-bold"> <Link to="/about">About Us</Link></li>
           <li className="hover:text-orange-500 hover:font-bold"> <Link to="/contact">Contact us</Link></li>
           <li className="hover:text-orange-500 hover:font-bold"> <Link to="/grocery">Grocery</Link></li>
-          <Button className="addItem" variant="text" startIcon={<ShoppingCartRounded />} sx={{
-            fontSize: "16px",
-            color: "black",
-            padding: "8px 10px",
-          }}>
-            Add item
-          </Button>
+          <li className="hover:text-orange-500 hover:font-bold"> <Link to="/cart">Cart</Link></li>
 
           {/* { <Button
             component={NavLink}
